@@ -1,4 +1,4 @@
-## Уставновка
+## Установка
 
 - git clone https://github.com/qelephant/laravel-excel
 - php artisan key:generate
