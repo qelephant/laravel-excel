@@ -7,13 +7,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\File;
+//use Illuminate\Support\Traits\Macroable\Datatables;
+use Yajra\DataTables\DataTables as DataTables;
 
 class UploadController extends Controller
 {
     public function index(Request $request)
     {
-        $data = File::paginate(50);
+        $data = File::sortable()->paginate(50);
         return view('upload', compact('data'));
+    }
+
+    public function datatable(Request $request)
+    {
+            if ($request->ajax()) {
+                $data = File::all();
+                return DataTables::of($data)->make(true);
+            }
+            return view('datatable');
     }
 
     public function import(Request $request)

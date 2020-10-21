@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'UploadController@index');
+Route::get('/', 'UploadController@index')->name('index');
+Route::get('datatable', 'UploadController@datatable')->name('datatable');
 
 Route::post('excel-import', 'UploadController@import')->name('excel-import');
 Route::get('show/{id}', 'UploadController@show')->name('show');

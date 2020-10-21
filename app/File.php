@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class File extends Model
 {
+    use Sortable;
+
     protected $table = "excel_data";
 
-    public $fillable = [
+    public $sortable = [
                     'id',
                     'order_id',
                     'order_date',
