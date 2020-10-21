@@ -1,4 +1,4 @@
-## Интсрукция по развертке
+## Уставновка
 
 - git clone https://github.com/qelephant/laravel-excel
 - php artisan key:generate
