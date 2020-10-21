@@ -2,6 +2,7 @@
 
 - git clone https://github.com/qelephant/laravel-excel
 - php artisan key:generate
+- php artisan migrate
 - composer update
 - php artisan serve
 
