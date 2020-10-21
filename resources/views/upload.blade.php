@@ -1,5 +1,13 @@
 @extends('app')
 
+@section('style')
+    <style>
+        .table-horiz-scroll {
+            overflow-x:auto;
+        }
+    </style>
+@endsection
+
 @section('content')
 <form method="POST" action="{{route('excel-import')}}" enctype="multipart/form-data">
     @csrf
@@ -33,7 +41,8 @@
     <div class="alert alert-success" role="alert">
         {{$data->total()}} orders
       </div>
-    <table class="table">
+      <div class="table-responsive">
+    <table class="table-horiz-scroll">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -85,7 +94,7 @@
                     <td>{{$row->quantity}}</td>
                     <td>{{$row->discount}}</td>
                     <td>{{$row->profit}}</td>
-                    <td><a class="btn btn-success" href="{{route('show',$row->id)}}">Show</a></td>
+                    <td><a class="btn btn-success" href="{{route('view',$row->id)}}">View</a></td>
                 </tr>
                 @endforeach
             @else
@@ -95,5 +104,5 @@
             @endif
         </tbody>
       </table>
-
+    </div>
 @endsection

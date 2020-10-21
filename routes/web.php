@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', 'UploadController@index')->name('index');
-Route::get('datatable', 'UploadController@datatable')->name('datatable');
-
 Route::post('excel-import', 'UploadController@import')->name('excel-import');
-Route::get('show/{id}', 'UploadController@show')->name('show');
+Route::get('view/{id}', 'UploadController@show')->name('view');
 
