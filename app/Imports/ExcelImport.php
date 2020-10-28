@@ -5,6 +5,7 @@ namespace App\Imports;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use App\File;
 
 class ExcelImport implements ToCollection
 {
@@ -45,7 +46,6 @@ class ExcelImport implements ToCollection
                 foreach(array_slice($data, 1) as $row){
                     DB::table('excel_data')->insert($row);
                 }
-
             }
         }
     }

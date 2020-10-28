@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\File;
+use App\Segment;
 //use Illuminate\Support\Traits\Macroable\Datatables;
 use Yajra\DataTables\DataTables as DataTables;
 
@@ -14,8 +15,11 @@ class UploadController extends Controller
 {
     public function index(Request $request)
     {
-        $data = File::sortable('id')->paginate(50);
-        return view('upload', compact('data'));
+        // $data = File::sortable('id')->paginate(50);
+        // return view('upload', compact('data'));
+        $data = File::all();
+        $result = File::generate();
+
     }
 
     public function import(Request $request)
