@@ -17,6 +17,8 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_id');
             $table->string('order_date');
+            $table->string('ship_date');
+            $table->integer('ship_mode_id')->unsigned();
             $table->integer('customer_id')->nullable();
             $table->integer('product_id')->nullable();
             $table->integer('sales');
