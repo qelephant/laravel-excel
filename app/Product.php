@@ -7,12 +7,14 @@ use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
+    public $timestamps = false;
+
     public static function generateModels($array)
     {
         $categories = array();
         $sub_categories = array();
         $product_names = array();
-
+        
         foreach(array_slice($array, 1) as $row){
             foreach($row as $key => $value){
                 if($key == 'category_id'){
@@ -53,6 +55,15 @@ class Product extends Model
                 DB::table('product_names')->insertGetId(['name' => $row ]);
             }
             $product_names = array_combine(range(1, count($product_names)), $product_names);
+        }
+        
+        foreach(array_slice($array, 1) as $row){
+            $product = new Product();
+            $product->product_id = $row['product_id'];
+            $product->category_id = array_search($row['category_id'], $categories);
+            $product->sub_category_id = array_search($row['sub_category_id'], $sub_categories);
+            $product->product_name_id = array_search($row['product_name_id'], $product_names);
+            $product->save();
         }
 
     }

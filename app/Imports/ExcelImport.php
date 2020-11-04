@@ -9,16 +9,19 @@ use App\File;
 use App\Customer;
 use App\Discount;
 use App\Product;
+use App\Order;
 
 class ExcelImport implements ToCollection
 {
     /**
     * @param Collection $collection
     */
+
     public function collection(Collection $collection)
     {
         {
-
+            $generateOrder = array();
+            ini_set('max_execution_time', 120);
             foreach ($collection as $k => $row)
             {
                 $order[] = array(
@@ -47,15 +50,16 @@ class ExcelImport implements ToCollection
                 $products[] = array(
                     'product_id' => $row[13],
                     'category_id' => $row[14],
-                    'sub_category' => $row[15],
-                    'product_name' => $row[16],
+                    'sub_category_id' => $row[15],
+                    'product_name_id' => $row[16],
                 );
             }
-
-            //Customer::generateModels($customers);
-            //Product::generateModels($products);
-            Discount::generate($dicounts);
-
+ 
+            // Customer::generateModels($customers);
+            // Product::generateModels($products);
+            // Discount::generate($dicounts);
+            $collection = $collection->toArray();
+            Order::generate($collection);
         }
     }
 }

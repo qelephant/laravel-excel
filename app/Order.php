@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\ShipMode;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Support\Facades\DB;
+
 
 class Order extends Model
 {
@@ -38,5 +40,32 @@ class Order extends Model
     public function shipMode()
     {
         return $this->belongsTo(ShipMode::class, 'ship_mode_id', 'id');
+    }
+    public static function generate($array)
+    {
+        $array = array_slice($array, 1);
+        
+        foreach($array as $row){
+            $data[] = [
+                'order_id' => $row[1],
+                'order_date' => $row[2],
+                'ship_date' => $row[3],
+                'ship_mode_id' => '4',
+                'customer_id' => '1',            
+                'product_id' => '13', 
+                'sales' => $row[17],
+                'quantity' => $row[18],
+                'discount_id' => '19',
+                'profit' => $row[20]                        
+            ];            
+        }
+      
+        $chunks = array_chunk($data, 1000);
+
+        foreach($chunks as $chunck){
+            //dd($chunck);
+            Order::insert($chunck);
+            
+        }
     }
 }
