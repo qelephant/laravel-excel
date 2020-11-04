@@ -15,11 +15,8 @@ class UploadController extends Controller
 {
     public function index(Request $request)
     {
-        // $data = File::sortable('id')->paginate(50);
-        // return view('upload', compact('data'));
-        $data = File::all();
-        $result = File::generate();
-
+        $data = File::sortable('id')->paginate(50);
+        return view('upload', compact('data'));
     }
 
     public function import(Request $request)

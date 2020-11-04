@@ -18,6 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('customer_id');
             $table->string('customer_name');
             $table->string('segment_id');
+            $table->string('country_id');
             $table->string('city_id');
             $table->string('state_id');
             $table->string('postal_code_id');

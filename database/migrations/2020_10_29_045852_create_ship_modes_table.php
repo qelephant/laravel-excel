@@ -16,7 +16,6 @@ class CreateShipModesTable extends Migration
         Schema::create('ship_modes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamps();
         });
     }
 

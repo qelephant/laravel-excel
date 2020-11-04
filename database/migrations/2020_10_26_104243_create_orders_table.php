@@ -25,7 +25,6 @@ class CreateOrdersTable extends Migration
             $table->integer('quantity');
             $table->integer('discount_id')->nullable();
             $table->float('profit');
-            $table->timestamps();
         });
     }
 
