@@ -15,19 +15,20 @@ class Product extends Model
         $sub_categories = array();
         $product_names = array();
         
-        foreach(array_slice($array, 1) as $row){
+        $array = array_slice($array, 1);
+        foreach($array as $row){
             foreach($row as $key => $value){
                 if($key == 'category_id'){
                     if(!in_array($value, $categories)){
                         $categories[] = $value;
                     }
                 }
-                if($key == 'sub_category'){
+                if($key == 'sub_category_id'){
                     if(!in_array($value, $sub_categories)){
                         $sub_categories[] = $value;
                     }
                 }
-                if($key == 'product_name'){
+                if($key == 'product_name_id'){
                     if(!in_array($value, $product_names)){
                         $product_names[] = $value;
                     }
@@ -56,15 +57,23 @@ class Product extends Model
             }
             $product_names = array_combine(range(1, count($product_names)), $product_names);
         }
-        
-        foreach(array_slice($array, 1) as $row){
-            $product = new Product();
-            $product->product_id = $row['product_id'];
-            $product->category_id = array_search($row['category_id'], $categories);
-            $product->sub_category_id = array_search($row['sub_category_id'], $sub_categories);
-            $product->product_name_id = array_search($row['product_name_id'], $product_names);
-            $product->save();
+
+        foreach($array as $row){
+            $data[] = [
+                'product_id' => $row['product_id'],
+                'category_id' => array_search($row['category_id'], $categories),
+                'sub_category_id' => array_search($row['sub_category_id'], $sub_categories),
+                'product_name_id' => array_search($row['product_name_id'], $product_names),                    
+            ];            
         }
 
+        $chunks = array_chunk($data, 1000);
+        $data = array_combine(range(1, count($data)), $data);
+        Product::truncate();
+        foreach($chunks as $chunck){
+            Product::insert($chunck);
+            
+        }
+        return $data;
     }
 }

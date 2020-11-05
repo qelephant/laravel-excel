@@ -24,18 +24,18 @@ class ExcelImport implements ToCollection
             ini_set('max_execution_time', 120);
             foreach ($collection as $k => $row)
             {
-                $order[] = array(
+                $orders[] = array(
                     'order_id' => $row[1],
                     'order_date' => $row[2],
                     'ship_date' => $row[3],
-                    'ship_mode' => $row[4],
+                    'ship_mode_id' => $row[4],
+                    'product_id' => $row[13],
                     'sales' => $row[17],
                     'quantity' => $row[18],
+                    'discount_id' => $row[19],
                     'profit' => $row[20],
                 );
-                $dicounts[] = array(
-                    'discount' => $row[19],
-                );
+
                 $customers[] = array(
                     'customer_id' => $row[5],
                     'customer_name' => $row[6],
@@ -55,11 +55,13 @@ class ExcelImport implements ToCollection
                 );
             }
  
-            // Customer::generateModels($customers);
-            // Product::generateModels($products);
+            //Customer::generateModels($customers);
+            $products = Product::generateModels($products);
             // Discount::generate($dicounts);
-            $collection = $collection->toArray();
-            Order::generate($collection);
+            $order = new Order;
+            $order->generateProducts($products);
+            $order->generate($orders);
+            //$collection = $collection->toArray();
         }
     }
 }
